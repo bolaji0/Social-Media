@@ -5,6 +5,8 @@ import { useAuth } from "../context/AuthContext";
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { signInWithGitHub, signOut, user } = useAuth();
+  console.log(user);
+  
 
   const displayName = user?.user_metadata.user_name || user?.email;
   return (
