@@ -3,11 +3,7 @@ import { useState } from 'react';
 import { supabase } from "../supabase-client";
 import { useAuth } from "../context/AuthContext";
 
-const fetchCommunities = async () => {
-    const { data, error } = await supabase.from("communities").select("*");
-    if (error) throw new Error(error.message);
-    return data;
-};
+
 
 const createPost = async (post, imageFile) => {
     const filePath = `${post.title}-${Date.now()}-${imageFile.name}`;
@@ -34,18 +30,18 @@ const createPost = async (post, imageFile) => {
 const CreatePost = () => {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
-    const [communityId, setCommunityId] = useState(null);
+    // const [communityId, setCommunityId] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
 
     const { user } = useAuth();
 
-    // const { data: communities } = useQuery({
-    //     queryKey: ["communities"],
-    //     queryFn: fetchCommunities,
-    // });
+    
 
     const { mutate, isPending, isError } = useMutation({
-        mutationFn: (data) => createPost(data.post, data.imageFile),
+    mutationFn: (data) => createPost(data.post, data.imageFile),
+    onError: (error) => {
+        console.error("Mutation failed:", error.message);
+    },
     });
 
     const handleFileChange = (e) => {
@@ -61,7 +57,7 @@ const CreatePost = () => {
             post: {
                 title,
                 content,
-                avatar_url: user?.user_metadata.avatar_url || null,
+                // avatar_url: user?.user_metadata.avatar_url || null,
                 // community_id: communityId,
             },
             imageFile: selectedFile,
@@ -97,17 +93,7 @@ const CreatePost = () => {
         />
       </div>
 
-      <div>
-        <label> Select Community</label>
-        <select id="community" onChange={handleCommunityChange}>
-          <option value={""}> -- Choose a Community -- </option>
-          {communities?.map((community, key) => (
-            <option key={key} value={community.id}>
-              {community.name}
-            </option>
-          ))}
-        </select>
-      </div>
+     
 
       <div>
         <label htmlFor="image" className="block mb-2 font-medium">
@@ -117,6 +103,7 @@ const CreatePost = () => {
           type="file"
           id="image"
           accept="image/*"
+          required
           onChange={handleFileChange}
           className="w-full text-gray-200"
         />
