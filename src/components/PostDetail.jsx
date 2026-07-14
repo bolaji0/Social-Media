@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "../supabase-client";
 import {LikeButton} from "./LikeButton";
-// import { CommentSection } from "./CommentSection";
+import {CommentSection} from "./CommentSection";
 
 const fetchPostById = async (id) => {
   const { data, error } = await supabase
@@ -44,7 +44,7 @@ export const PostDetail = ({ postId }) => {
         Posted on: {new Date(data.created_at).toLocaleDateString()}
       </p>
       <LikeButton postId={postId} />
-      {/* <CommentSection postId={postId} /> */}
+      <CommentSection postId={postId} />
     </div>
   );
 };
