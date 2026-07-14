@@ -57,7 +57,7 @@ const CreatePost = () => {
             post: {
                 title,
                 content,
-                // avatar_url: user?.user_metadata.avatar_url || null,
+                avatar_url: user?.user_metadata.avatar_url || null,
                 // community_id: communityId,
             },
             imageFile: selectedFile,
