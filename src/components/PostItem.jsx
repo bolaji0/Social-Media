@@ -19,7 +19,7 @@ export const PostItem = ({ post }) => {
             )}
             <div className="flex flex-col flex-1">
               <div className="text-[20px] leading-[22px] font-semibold mt-2">
-                {post.title}
+                {post.title.length > 20 ? `${post.title.substring(0,20)}....` : post.title}
               </div>
             </div>
           </div>
