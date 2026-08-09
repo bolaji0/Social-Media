@@ -25,7 +25,7 @@ export const CommunityList = () => {
       <div className="text-center text-red-500 py-4">
         Error: {error.message}
       </div>
-    );
+  );
 
   return (
     <div className="max-w-5xl mx-auto space-y-4">
