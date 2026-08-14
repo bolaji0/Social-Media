@@ -148,13 +148,22 @@ export const Navbar = () => {
               Create Community
             </Link>
             {user ? 
+            <>
+            <Link
+              to="/chat"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
+            >
+              Chat
+            </Link>
             <div
               to="/community/create"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
               onClick={signOut}
             >
               Sign Out
-            </div>  :
+            </div>
+            </>
+            :
             <Link
               to="/AuthPage"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
