@@ -6,6 +6,8 @@ import CreatePostPage from './pages/CreatePostPage'
 import PostPage from './pages/PostPage'
 import CreateCommunityPage from './pages/CreateCommunityPage'
 import { CommunitiesPage } from './pages/CommunitiesPage'
+import Chat from './pages/Chat'
+import AuthPage from './pages/AuthPage'
 
 
 const App = () => {
@@ -22,6 +24,8 @@ const App = () => {
           <Route path="/post/:id" element={<PostPage />}/>
           <Route path="/community/create" element={<CreateCommunityPage />}/>
           <Route path="/communities" element={<CommunitiesPage />}/>
+          <Route path="/chat" element={<Chat />}/>
+          <Route path="/AuthPage" element={<AuthPage />}/>
         </Routes>
       </div>
     </div>

@@ -74,12 +74,13 @@ export const Navbar = () => {
                 </button>
               </div>
             ) : (
+             <Link to="/AuthPage">
               <button
-                onClick={signInWithGitHub}
                 className="bg-blue-500 px-3 py-1 rounded"
               >
-                Sign in with GitHub
+                Sign Up / Sign In
               </button>
+             </Link>
             )}
           </div>
 
