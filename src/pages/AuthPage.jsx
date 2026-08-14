@@ -78,6 +78,7 @@ export default function AuthPage() {
             <div className="flex flex-1 flex-col justify-center border-b border-dashed border-gray-200 pb-6 min-h-[100px]">
               <button 
                 type="button" 
+                onClick={signInWithGitHub}
                 className="flex w-full items-center justify-center gap-3 rounded-lg bg-black px-5 py-3 text-white transition-all hover:bg-gray-800 shadow-md font-medium"
               >
                 <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
