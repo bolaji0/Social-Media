@@ -1,32 +1,69 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from "../context/AuthContext";
+import { replace, useNavigate } from 'react-router';
 
 export default function AuthPage() {
   const [isSignIn, setIsSignIn] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // Added 'isLoading' here assuming your AuthContext provides it
   const { signInWithGitHub, signOut, user, signInWithEmail, signUpWithEmail, isLoading } = useAuth();
+  const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    if(!isLoading && user){
+        navigate('/', {replace: true});
+
+    }   
+  }, [user, isLoading, navigate])
+
+   if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-100">
+        <div className="text-gray-500 font-medium animate-pulse">Checking authentication...</div>
+      </div>
+    );
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("this is in the handleSubmit");
+    
     if (!email.trim() || !password.trim()) {
       alert("Please fill in both inputs");
       return;
     }
 
-    if (isSignIn) {
-      signInWithEmail(email, password);
-    } else {
-      signUpWithEmail(email, password);
+    try {
+      if (isSignIn) {
+        const response = await signInWithEmail(email, password);
+        console.log("the sign in container");
+        
+        if (response?.error) {
+          console.error("Supabase Login Error:", response.error.message);
+          alert(`Login failed: ${response.error.message}`);
+        }
+        navigate('/')
+      } else {
+        const response = await signUpWithEmail(email, password);
+        console.log("the sign up container");
+        
+        if (response?.error) {
+          console.error("Supabase Signup Error:", response.error.message);
+          alert(`Signup failed: ${response.error.message}`);
+        }
+      }
+    } catch (err) {
+      console.error("Unexpected runtime error:", err);
     }
   };
 
   return (
-    // Fixed 'bg' class to 'bg-gray-100'
-    <div className="flex min-h-screen items-center justify-center bg-black-100 p-4">
+    // Fixed 'bg-black-100' to a valid Tailwind utility: 'bg-gray-100'
+
+    
+
+    <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
       {/* Main Container Box */}
       <div className="flex h-auto min-h-[550px] w-full max-w-4xl overflow-hidden rounded-2xl bg-white shadow-xl md:h-[550px]">
         
